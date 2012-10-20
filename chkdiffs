@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+import sys
+import vanitycalc
+
+if len(sys.argv) > 1:
+	patterns = sys.argv[1:]
+else:
+	patterns = ["1cat", "1dog","1Love", "1barney", "111", "1Q", "1Bitcoin", "1fish"]
+
+for p in patterns:
+	print "CS:", p, '%.0f' % vanitycalc.getdiff([p], 0)
+	print "CSI:", p, '%.0f' % vanitycalc.getdiff([p], 1)
+	
+if len(patterns) > 1:
+	print "-----"
+	print "ALL CS:", '%.0f' % vanitycalc.getdiff(patterns, 0)
+	print "ALL CSI:", '%.0f' % vanitycalc.getdiff(patterns, 1)

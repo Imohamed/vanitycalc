@@ -1,0 +1,47 @@
+
+VanityCalc - Python module for calculating bitcoin address difficulty.
+
+This module is derived from vanitygen code (see https://github.com/samr7/vanitygen). It wraps
+the vanitygen code with a Python entry point but also is modified to remove console messages 
+and strip unused code.
+
+This should handle dependencies:
+
+apt-get install build-essential python-dev libpcre-dev libssl-dev
+
+You may need to match libssl versions as well. I found that with Python 2.7 on newer Linux 
+releases that install libssl1.0.0 by default I also had to install libssl0.9.8. It seems to 
+be linked in by the build step. Maybe there's a more elegant way of fixing that.
+
+-----
+
+To build this module, make sure you have any dependencies, and then,
+
+git clone https://github.com/bkkcoins/vanitycalc
+cd vanitycalc
+python setup.py build
+cp build/lib*/vanitycalc.so .
+
+This creates vanitycalc.so that you can copy to be with your Python code.
+
+The getdiff function takes a list of prefixes and a caseinsensitive flag. When calculating with more than one 
+prefix in the list it calculates the next match diffculty, which I believe is the lowest value of any found.
+
+-----
+
+chkdiffs
+
+There is an example chkdiffs Python program here to test it works and show how you might use it. 
+
+It can take cmdline args to check but if none is provided it runs thru a preset list of chk values.
+
+-----
+
+getdiff.c
+
+This a simple C cmdline utility that I used as an inital test of adapting the vanitygen code.
+It only checks one case insensitive prefix so is limited in usefulness.
+
+You should be able to build it like this,
+
+gcc -o getdiff getdiff.c -lpcre -lcrypto
