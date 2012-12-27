@@ -10,12 +10,13 @@ vanitycalc_getdiff(PyObject *self, PyObject *args)
 	vg_context_t *vcp = NULL;
     PyObject *patterns;
     int caseinsensitive;
+	int addrtype = 0;
     double diff;
 
-    if (!PyArg_ParseTuple(args, "Oi", &patterns, &caseinsensitive))
+    if (!PyArg_ParseTuple(args, "Oi|i", &patterns, &caseinsensitive, &addrtype))
         return NULL;
         
-    vcp = vg_prefix_context_new(0, 128, caseinsensitive);
+    vcp = vg_prefix_context_new(addrtype, 128, caseinsensitive);
     diff = vg_context_add_patterns(vcp, patterns);
     vg_context_free(vcp);
     
